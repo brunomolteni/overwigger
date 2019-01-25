@@ -1,0 +1,37 @@
+body,
+html {
+  /*position: fixed;*/
+  width: 100%;
+}
+html{
+  overflow-x: hidden;
+}
+body{
+  background-color: #171717;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Verdana', sans-serif;
+  overflow-x: hidden;
+  padding-top: 10px;
+  margin: 0;
+  position: relative;
+}
+h1{
+  color: #ffb322;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  text-align: center;
+  width: 100%;
+  margin: 0 0;
+  font-size: 2.2em;
+  line-height: 1.8;
+  text-transform: uppercase;
+  background: -webkit-linear-gradient(#FFC107, #FF9800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 3px 0px #ff980054,0 2px 0px #ff980054,0 1px 0px #ff980054;
+}

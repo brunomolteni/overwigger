@@ -1,0 +1,41 @@
+{
+    "app_name": "Overwigger",
+    "author": "Bruno Molteni",
+    "dependencies": {
+        "carlo": "^0.9.43",
+        "engine.io": "^3.1.4",
+        "express": "^4.16.2",
+        "primus": "^7.1.0",
+        "primus.io": "^4.0.0",
+        "quick-local-ip": "^1.0.7",
+        "sockjs": "^0.3.19",
+        "ws": "^3.3.2"
+    },
+    "description": "Browser UI to control Bitwig Studio",
+    "license": "ISC",
+    "bg-script": "overwigger.server.js",
+    "main": "http://localhost:8888",
+    "name": "overwigger-ui",
+    "version": "0.1.0",
+    "window": {
+        "id": "Overwigger",
+        "title": "Overwigger",
+        "fullscreen": true,
+        "icon": "./src/favicon.ico"
+    },
+    "devDependencies": {
+        "nwjs-builder-phoenix": "^1.15.0"
+    },
+    "build": {
+        "nwVersion": "0.35.5",
+        "targets": [
+          "zip",
+          "nsis7z"
+        ]
+    },
+    "scripts": {
+        "dist": "build --tasks win-x86,win-x64,linux-x86,linux-x64,mac-x64 --mirror https://dl.nwjs.io/ .",
+        "win": "build --tasks win-x64 --mirror https://dl.nwjs.io/ .",
+        "start": "run --x86 --mirror https://dl.nwjs.io/ ."
+    }
+}

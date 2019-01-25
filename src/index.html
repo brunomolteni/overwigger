@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Overwigger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <script src="/primus/primus.js"></script>
+    <script src="/js/riot+compiler.min.js"></script>
+    <!-- Enable to debug on mobile
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script> -->
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <script>
+    async function run() {
+      // Mount riot components
+      riot.mount('*');
+
+      // connect to primus server
+      window.primus = Primus.connect(`http://localhost:8888`);
+
+      // log data coming from server
+      primus.on('data', function message(d) {
+        var data = JSON.parse(d);
+        if(!data.ip)console.log( 'Recieved data from Bitwig:', data );
+        else alert("To connect another device navigate to "+data.ip+":8888");
+      });
+
+      // show IP on right click
+      document.body.addEventListener('contextmenu', function(ev) {
+          primus.write({"ip":true})
+      });
+
+    }
+  </script>
+  <body onload="run()">
+    <!-- <h1 id="title" onclick="ip()">Overwigger</h1> -->
+    <device track="1"></device>
+    <device track="2"></device>
+    <device track="3"></device>
+    <device track="4"></device>
+    <device track="5"></device>
+    <device track="6"></device>
+    <device track="7"></device>
+    <device track="8"></device>
+
+    <script data-src="/components/device.tag" type="riot/tag"></script>
+    <script data-src="/components/knob.tag" type="riot/tag"></script>
+    <script data-src="/components/piano.tag" type="riot/tag"></script>
+    <!-- <script src="/js/rangetouch.js"></script>
+    <script type="text/javascript">
+      window.rangetouch.set("thumbWidth", 50);
+    </script> -->
+  </body>
+</html>
