@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <script>
-    async function run() {
+    function run() {
       // Mount riot components
       riot.mount('*');
 
       // connect to primus server
-      window.primus = Primus.connect(`http://localhost:8888`);
+      window.primus = Primus.connect(document.URL);
 
       // log data coming from server
       primus.on('data', function message(d) {

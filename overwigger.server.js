@@ -7,7 +7,10 @@ var express = require('express')
   , app = express()
   , server = http.createServer(app);
 
-  var SILENT = true;
+  var myip = require('quick-local-ip');
+  var net = require('net');
+
+  var SILENT = false;
 
 // ------------------------- UTILS ----------------------------------
 

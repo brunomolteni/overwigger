@@ -15,13 +15,13 @@
     "license": "ISC",
     "bg-script": "overwigger.server.js",
     "main": "http://localhost:8888",
-    "name": "overwigger-ui",
+    "name": "overwigger",
     "version": "0.1.0",
     "window": {
         "id": "Overwigger",
         "title": "Overwigger",
-        "fullscreen": true,
-        "icon": "./src/favicon.ico"
+        "icon": "./src/favicon.ico",
+        "fullscreen": true
     },
     "devDependencies": {
         "nwjs-builder-phoenix": "^1.15.0"
