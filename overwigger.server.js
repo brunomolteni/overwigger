@@ -57,7 +57,7 @@ function sendToBitwig(data){
 }
 
 function sendToBrowser(data){
-  if(primus && primus.write) primus.write(data);
+  if(primus && primus.write) setTimeout(()=>primus.write(data),1);
 }
 
 function connectToBitwig(){
@@ -69,9 +69,30 @@ function connectToBitwig(){
   });
 
   bitwig.on('data', function(data) {
-    parsedData = data.readBytes();
-    log('got data from Bitwig: \n', parsedData, '\n');
-    sendToBrowser(parsedData);
+    readData = data.readBytes();
+
+    let splittedData = readData.split('}{');
+
+    let setupEmitter = d => {
+      var parsedData = JSON.parse(d);
+      log('got data from Bitwig: \n', parsedData, '\n');
+      sendToBrowser(parsedData);
+    }
+
+    if( splittedData.length === 1 ){
+      setupEmitter(readData)
+    }else if(splittedData.length > 1 ){
+      splittedData
+      .map( (el,i) => {
+        if(i !== 0) el = '{'+el;
+        if(i !== splittedData.length-1 ) el+='}';
+        return el;
+      })
+      .forEach((d,i) => {
+        setupEmitter(d);
+      })
+    }
+
   });
 
   bitwig.on('close', function(error) {

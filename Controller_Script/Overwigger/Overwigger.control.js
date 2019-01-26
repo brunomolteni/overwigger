@@ -69,8 +69,8 @@ function init()
         !!val && sendToBrowser({track: i, name: val });
       });
 
-      el.track.color().addValueObserver( function(val){
-         !!val && sendToBrowser({track: i, color: val });
+      el.track.color().addValueObserver( function(r,g,b){
+        sendToBrowser({track: i, color: {r:scaleColor(r), g:scaleColor(g), b:scaleColor(b), a:255} });
       });
 
       el.macros.forEach( function(el,h,arr){
@@ -128,8 +128,8 @@ function init()
     // log(new host.HardwareControlType());
 
     var channels = tracks.map( function(el){
-      // el.track.selectInMixer();
-      // el.device.selectFirstInChannel( el.device.channel() );
+      el.track.selectInMixer();
+      el.device.selectFirstInChannel( el.device.channel() );
       // el.controls.setHardwareLayout( "SLIDER", 8 );
       // el.device.selectInEditor();
       var name = el.track.name().get();

@@ -20,8 +20,7 @@
       window.primus = Primus.connect(document.URL);
 
       // log data coming from server
-      primus.on('data', function message(d) {
-        var data = JSON.parse(d);
+      primus.on('data', function message(data) {
         if(!data.ip)console.log( 'Recieved data from Bitwig:', data );
         else alert("To connect another device navigate to "+data.ip+":8888");
       });

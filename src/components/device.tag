@@ -9,19 +9,31 @@
   </virtual>
 
   <script>
-    primus.on('data', d => {
-      var data = JSON.parse(d);
+    primus.on('data', data => {
+      let trackNumber = this.opts.track-1;
 
-      if(data.channels && data.channels[this.opts.track-1]){
-        this.channel = data.channels[this.opts.track-1];
+      if(data.channels && data.channels[trackNumber]){
+        this.channel = data.channels[trackNumber];
         this.update();
       }
+      else if(typeof data.track !== 'undefined' && data.track===trackNumber){
+        if(typeof data.macro !== 'undefined' ){
+          var macro = this.tags.knob[data.macro];
 
-      if(typeof data.macro !== 'undefined' && data.track===this.opts.track-1){
-        var macro = this.tags.knob[data.macro];
-
-        if(typeof data.value !== 'undefined' ) macro.trigger('value',data.value);
-        if(data.name) this.channel.macros[data.macro].name = data.name, this.update();
+          if(typeof data.value !== 'undefined' ) macro.trigger('value',data.value);
+          if(data.name){
+            this.channel.macros[data.macro].name = data.name;
+            this.update();
+          }
+        }
+        else if(data.name){
+          this.channel.name = data.name;
+          this.update();
+        }
+        if(data.color){
+          this.channel.color = data.color;
+          this.update();
+        }
       }
     });
   </script>
