@@ -44,7 +44,7 @@
     function convertColorObj(color){
       let {r,g,b} = color;
       console.log(r);
-      return {r: scaleColor(r), g: scaleColor(g), b: scaleColor(b)}
+      return {r: scaleColor(r), g: scaleColor(g), b: scaleColor(b), a: 255}
     }
 
     function scaleColor(unscaledNum) {
