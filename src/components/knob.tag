@@ -1,15 +1,16 @@
 <knob>
 
   <input type="range" ref="input" min="0" max="127" class={ 'i'+this.opts.i } oninput={ moving } onchange={ finishMoving }>
-  <p class="name">{this.opts.name}</p>
+  <p class="name" onclick={ reset }>{this.opts.name}</p>
 
   <script>
+    const trackNumber = this.parent.opts.track-1;
     this.moving = throttle(e => {
-      primus.write({track: this.parent.opts.track-1, macro: this.opts.i, value: +e.target.value});
+      primus.write({track: trackNumber, macro: this.opts.i, value: +e.target.value});
     },50);
 
     this.finishMoving = throttle(e => {
-      primus.write({track: this.parent.opts.track-1, macro: this.opts.i, value:'release'});
+      primus.write({track: trackNumber, macro: this.opts.i, value:'release'});
     },50);
 
     this.on('mount', ()=>{
@@ -22,7 +23,7 @@
 
     this.scaledVal = (val) => {
       return Math.floor( (127 - 0) * (val - 0) / (1 - 0) + 0);
-    }
+    };
 
     function debounce(callback, wait, context = this) {
       let timeout = null
@@ -109,7 +110,7 @@
       height: 90px;
       backface-visibility: hidden;
       -webkit-appearance: none;
-      width: var(--device-height);
+      width: calc(var(--device-height) - 56px);
       margin: 0;
       position: absolute;
       top: -5px;

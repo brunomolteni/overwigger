@@ -57,7 +57,7 @@ function sendToBitwig(data){
 }
 
 function sendToBrowser(data){
-  if(primus && primus.write) setTimeout(()=>primus.write(data),1);
+  if(primus && primus.write) primus.write(data);
 }
 
 function connectToBitwig(){
